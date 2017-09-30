@@ -50,6 +50,9 @@
   },
   "dependencies": {
     "dotenv": "^2.0.0",
+    "eccrypto": "^1.0.3",
+    "ethereumjs-util": "^5.1.2",
+    "ethjs-util": "^0.1.4",
     "react": "^15.4.2",
     "react-dom": "^15.4.2"
   },

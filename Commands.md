@@ -7,5 +7,5 @@
         yarn mist
     
     Tests
-        yarn testrpc
-        yarn test        
+        commands/testrpc.sh
+        commands/test.sh         
