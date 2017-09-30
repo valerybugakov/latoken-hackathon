@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+
+import Header from 'components/Header'
+
 import SimpleStorageContract from '../build/contracts/SimpleStorage.json'
 import getWeb3 from './utils/getWeb3'
 
@@ -13,7 +16,7 @@ class App extends Component {
 
     this.state = {
       storageValue: 0,
-      web3: null
+      web3: null,
     }
   }
 
@@ -22,17 +25,17 @@ class App extends Component {
     // See utils/getWeb3 for more info.
 
     getWeb3
-    .then(results => {
-      this.setState({
-        web3: results.web3
-      })
+      .then(results => {
+        this.setState({
+          web3: results.web3,
+        })
 
-      // Instantiate contract once web3 provided.
-      this.instantiateContract()
-    })
-    .catch(() => {
-      console.log('Error finding web3.')
-    })
+        // Instantiate contract once web3 provided.
+        this.instantiateContract()
+      })
+      .catch(() => {
+        console.log('Error finding web3.')
+      })
   }
 
   instantiateContract() {
@@ -48,7 +51,7 @@ class App extends Component {
     simpleStorage.setProvider(this.state.web3.currentProvider)
 
     // Declaring this for later so we can chain functions on SimpleStorage.
-    var simpleStorageInstance
+    let simpleStorageInstance
 
     // Get accounts.
     this.state.web3.eth.getAccounts((error, accounts) => {
@@ -56,22 +59,23 @@ class App extends Component {
         simpleStorageInstance = instance
 
         // Stores a given value, 5 by default.
-        return simpleStorageInstance.set(5, {from: accounts[0]})
-      }).then((result) => {
+        return simpleStorageInstance.set(5, { from: accounts[0] })
+      }).then((result) =>
         // Get the value from the contract to prove it worked.
-        return simpleStorageInstance.get.call(accounts[0])
-      }).then((result) => {
+        simpleStorageInstance.get.call(accounts[0])
+      ).then((result) =>
         // Update state with the result.
-        return this.setState({ storageValue: result.c[0] })
-      })
+        this.setState({ storageValue: result.c[0] })
+      )
     })
   }
 
   render() {
     return (
       <div className="App">
+        <Header />
         <nav className="navbar pure-menu pure-menu-horizontal">
-            <a href="#" className="pure-menu-heading pure-menu-link">Truffle Box</a>
+          <a href="#" className="pure-menu-heading pure-menu-link">Truffle Box</a>
         </nav>
 
         <main className="container">
@@ -87,7 +91,7 @@ class App extends Component {
           </div>
         </main>
       </div>
-    );
+    )
   }
 }
 
